@@ -1,0 +1,275 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // Migrations pela conexão direta: o PgBouncer (Neon -pooler) prende a trava de sessão do migrate
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  roleId        String
+
+  role          Role          @relation(fields: [roleId], references: [id])
+  sessions      Session[]
+  accounts      Account[]
+  lotsSelling   Lot[]         @relation("LotSeller")
+  lotsLeading   Lot[]         @relation("LotLeader")
+  bids          Bid[]
+  wallet        Wallet?
+  walletEntries WalletEntry[]
+  receiptsWon   Receipt[]
+
+  @@index([roleId])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+}
+
+// Papel = conjunto de permissões, guardado como dado (BR-AUTH-02)
+model Role {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  // Aparece na escolha de papel do cadastro público
+  publicSignup Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  permissions RolePermission[]
+  users       User[]
+}
+
+model Permission {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  createdAt DateTime @default(now())
+
+  roles RolePermission[]
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+}
+
+// Cartas já consultadas na fonte externa. Com a Scryfall fora, a busca oferece estas (F3.3).
+model CatalogCard {
+  id         String   @id @default(cuid())
+  source     String
+  sourceId   String
+  title      String?
+  setName    String?
+  rarity     String?
+  releasedAt String?
+  imageUrl   String?
+  // Lista de { key, value }
+  attributes Json
+  sourceUrl  String?
+  lastSeenAt DateTime
+  createdAt  DateTime @default(now())
+
+  @@unique([source, sourceId])
+  @@index([lastSeenAt])
+}
+
+enum LotOutcome {
+  SOLD
+  UNSOLD
+}
+
+// Lote de leilão (F4). Sem coluna de estado: o estado vem de cancelledAt, closedAt e do relógio.
+// Guarda uma cópia da carta para não depender da Scryfall depois de publicado.
+// Na migration (SQL): índice único parcial da carta em lote ativo e CHECKs de valores e datas.
+model Lot {
+  id                String      @id @default(cuid())
+  sellerId          String
+  source            String
+  sourceItemId      String
+  title             String?
+  setName           String?
+  rarity            String?
+  releasedAt        String?
+  imageUrl          String?
+  attributes        Json
+  sourceUrl         String?
+  startingBidCents  Int
+  minIncrementCents Int
+  startsAt          DateTime
+  endsAt            DateTime
+  originalEndsAt    DateTime
+  // Soma das prorrogações já aplicadas (teto em RULES.EXTENSION_CAP_MS)
+  extendedMs        Int         @default(0)
+  currentBidCents   Int?
+  leaderId          String?
+  bidCount          Int         @default(0)
+  // Último hash da cadeia de auditoria (F8)
+  chainHead         String?
+  cancelledAt       DateTime?
+  closedAt          DateTime?
+  outcome           LotOutcome?
+  createdAt         DateTime    @default(now())
+
+  seller       User         @relation("LotSeller", fields: [sellerId], references: [id])
+  leader       User?        @relation("LotLeader", fields: [leaderId], references: [id])
+  bids         Bid[]
+  receipt      Receipt?
+  auditEntries AuditEntry[]
+
+  @@index([sellerId])
+  @@index([startsAt])
+  @@index([endsAt])
+}
+
+// Carteira (F5). Disponível = total − comprometido, sempre calculado, nunca gravado.
+// Na migration (SQL): CHECK (total >= 0, comprometido >= 0, comprometido <= total).
+model Wallet {
+  userId         String   @id
+  totalCents     Int      @default(0)
+  committedCents Int      @default(0)
+  updatedAt      DateTime @updatedAt
+
+  // Restrict: apagar um usuário não pode apagar o histórico financeiro
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+}
+
+enum WalletEntryType {
+  DEPOSIT
+  COMMIT
+  RELEASE
+  SETTLEMENT_DEBIT
+  SETTLEMENT_CREDIT
+}
+
+// Extrato só de inserção
+model WalletEntry {
+  id             String          @id @default(cuid())
+  userId         String
+  type           WalletEntryType
+  amountCents    Int
+  lotId          String?
+  bidId          String?
+  idempotencyKey String?
+  createdAt      DateTime
+
+  // Restrict: o extrato é só de inserção e sobrevive ao usuário
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, idempotencyKey])
+  @@index([userId, createdAt])
+}
+
+// Lance (F6). seq é a ordem do lance dentro do lote.
+model Bid {
+  id             String   @id @default(cuid())
+  lotId          String
+  seq            Int
+  bidderId       String
+  amountCents    Int
+  idempotencyKey String?
+  createdAt      DateTime
+
+  lot    Lot  @relation(fields: [lotId], references: [id], onDelete: Cascade)
+  bidder User @relation(fields: [bidderId], references: [id])
+
+  @@unique([lotId, seq])
+  @@unique([bidderId, lotId, idempotencyKey])
+  @@index([bidderId])
+}
+
+// Comprovante público de arremate (F7). Não guarda dados pessoais além do id do vencedor.
+model Receipt {
+  id         String   @id @default(cuid())
+  lotId      String   @unique
+  code       String   @unique
+  finalCents Int
+  bidCount   Int
+  winnerId   String
+  chainHead  String?
+  issuedAt   DateTime
+
+  lot    Lot  @relation(fields: [lotId], references: [id], onDelete: Cascade)
+  winner User @relation(fields: [winnerId], references: [id])
+
+  @@index([winnerId])
+}
+
+enum AuditType {
+  BID
+  EXTENSION
+  CANCELLED
+  CLOSED
+}
+
+// Cadeia de auditoria por lote (F8): cada fato assina o anterior com HMAC-SHA256 (AUDIT_SECRET).
+// Só inserção; a verificação recalcula tudo a cada acesso.
+model AuditEntry {
+  id        String    @id @default(cuid())
+  lotId     String
+  seq       Int
+  type      AuditType
+  payload   Json
+  prevHash  String
+  hash      String
+  createdAt DateTime
+
+  lot Lot @relation(fields: [lotId], references: [id], onDelete: Cascade)
+
+  @@unique([lotId, seq])
+}

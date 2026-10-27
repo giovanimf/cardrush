@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CardRush · Plano de ação</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--bg:#e9e6df;--ink:#13192b;--muted:#5b6475}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'IBM Plex Sans',Arial,sans-serif}
+header{max-width:1200px;margin:0 auto;padding:40px 16px 8px}
+header h1{font:700 32px 'Space Grotesk',Arial,sans-serif;margin:0}
+header p{color:var(--muted);margin:8px 0 0}
+main{max-width:1200px;margin:0 auto;padding:16px 16px 80px;display:flex;flex-direction:column;gap:32px}
+.frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:12px;box-shadow:0 10px 30px rgba(19,25,43,.18)}
+.canvas{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:0 0}
+.canvas>section{position:relative;width:1920px;height:1080px;box-sizing:border-box}
+.canvas h1,.canvas h2,.canvas h3,.canvas p,.canvas ul,.canvas ol{margin:0}
+.canvas ul,.canvas ol{padding-left:1.2em}
+.canvas table{width:100%;border-collapse:collapse}
+.canvas th,.canvas td{padding:.35em .6em;border-bottom:1px solid rgba(19,25,43,.18);text-align:left;vertical-align:top}
+.canvas th{font-weight:600}
+.canvas svg.conn{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none}
+details{margin-top:10px;background:#fbfaf6;border-radius:10px;padding:10px 16px}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 0;color:#33394a;max-width:80ch}
+@media print{body{background:#fff}details{display:none}.slide-wrap{break-after:page}}
+</style></head><body>
+<header><h1>CardRush — Plano de Ação</h1><p>25 slides. As notas de cada slide trazem o detalhe técnico; abra "Notas do slide" abaixo de cada um.</p></header>
+<main>
+<article class="slide-wrap" id="cover"><div class="frame"><div class="canvas"><section id="cover" data-transition="fade" style="background:#13192B;color:#F5F3EE;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<div style="display:flex;flex-direction:row;gap:24px;align-items:center">
+<div style="width:96px;height:8px;background:#E3A23B;border-radius:4px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B;letter-spacing:2px;text-transform:uppercase">CardRush · plano de ação</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:40px">
+<h1 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1.05;color:#F5F3EE">Leilão de cartas colecionáveis</h1>
+<p style="font-size:44px;line-height:1.3;color:#C3CAD8;max-width:1400px">Regras de negócio, permissões e segurança, divididas em fases de construção</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:48px">
+<p style="font-size:28px;color:#C3CAD8">Next.js 16 · Better Auth · Prisma 6 · PostgreSQL · Scryfall</p>
+<p style="font-size:28px;color:#E3A23B">Frontend: etapa posterior</p>
+</div>
+
+</section></div></div><details><summary>Notas do slide 1</summary><p>Plano revisado com as decisões já tomadas: nome CardRush, API Scryfall, regra de prorrogação, permissões como dados, anti-bot com Cloudflare Turnstile e interface em inglês e português. O foco continua em backend e regras de negócio; a interface entra depois, com uma nova referência visual.</p></details></article>
+<article class="slide-wrap" id="desafio"><div class="frame"><div class="canvas"><section id="desafio" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">01 · O desafio</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">O que precisa existir no fim</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:64px;flex:1">
+<div style="flex:1;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:36px;line-height:1.4;color:#13192B">Um <b>leiloeiro</b> monta lotes a partir de itens de uma API pública. <b>Licitantes</b> depositam saldo simulado e disputam ao vivo. <b>Qualquer pessoa</b>, sem login, audita o histórico de lances e confirma que não foi adulterado.</p>
+<p style="font-size:28px;line-height:1.4;color:#4A5368">Fora de escopo: nota fiscal, revenda entre usuários, app nativo e recuperação de senha.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:40px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Obrigatório para entregar</h3>
+<ul style="font-size:28px;line-height:1.5;color:#4A5368">
+<li>Deploy público funcionando</li>
+<li>README com passo a passo e comportamentos inesperados</li>
+<li>Seed: 1 leiloeiro, 2 clientes, 1 lote ao vivo com lances</li>
+<li>Relato de onde e como a IA foi usada</li>
+<li>Prazo: 7 dias corridos</li>
+</ul>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 02</p>
+
+</section></div></div><details><summary>Notas do slide 2</summary><p>Resumo do PDF do teste técnico. Três atores: leiloeiro, licitante e o público anônimo que audita. O deploy é obrigatório, então ele entra desde a primeira fase, não no fim.</p></details></article>
+<article class="slide-wrap" id="stack"><div class="frame"><div class="canvas"><section id="stack" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">02 · Stack</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">A base atual atende o exigido</h2>
+</div>
+<table style="font-size:28px;color:#13192B">
+<tr><th style="width:18%">Requisito</th><th style="width:24%">Exigido no teste</th><th style="width:38%">CardRush hoje</th><th style="width:20%">Situação</th></tr>
+<tr><td>Frontend</td><td>React</td><td>Next.js 16 + React 19</td><td style="color:#2F6B4F">Atende</td></tr>
+<tr><td>Backend</td><td>Node.js ou Python</td><td>Route Handlers e Server Actions</td><td style="color:#2F6B4F">Atende</td></tr>
+<tr><td>Banco</td><td>Postgres, MySQL ou NoSQL</td><td>PostgreSQL (Neon) + Prisma 6.19</td><td style="color:#2F6B4F">Atende</td></tr>
+<tr><td>Autenticação</td><td>Dois papéis distintos</td><td>Better Auth, e-mail e senha</td><td style="color:#9A5B00">Falta RBAC</td></tr>
+<tr><td>Tempo real</td><td>Sem recarregar a página</td><td>Nada ainda</td><td style="color:#9A5B00">Falta</td></tr>
+<tr><td>Deploy</td><td>Obrigatório</td><td>Definido no fim do projeto</td><td style="color:#9A5B00">Pendente</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#4A5368">Veredito: dá para usar a stack inteira sem trocar nenhuma peça. O trabalho é adicionar módulos sobre ela.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 03</p>
+
+</section></div></div><details><summary>Notas do slide 3</summary><p>Next.js cobre frontend e backend em Node no mesmo projeto: um repositório só. O Neon já está configurado e o Prisma fica na versão 6.19. A hospedagem é decidida no fim, e ela influencia o tempo real e o encerramento automático (ver pendências).</p></details></article>
+<article class="slide-wrap" id="acordos"><div class="frame"><div class="canvas"><section id="acordos" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">03 · Decisões tomadas</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">O que já está definido</h2>
+</div>
+<table style="font-size:24px;color:#13192B">
+<tr><th style="width:24%">Tema</th><th style="width:76%">Decisão</th></tr>
+<tr><td>Nome</td><td>CardRush: leilão de cartas colecionáveis</td></tr>
+<tr><td>API de itens</td><td>Scryfall (cartas de Magic: The Gathering), pública e sem chave</td></tr>
+<tr><td>Prorrogação</td><td>Fim atual + 2 min, com teto de 10 min por lote</td></tr>
+<tr><td>Papéis</td><td>Permissões como dados; o código nunca checa nome de papel</td></tr>
+<tr><td>Anti-bot</td><td>Cloudflare Turnstile invisível em escritas e leituras</td></tr>
+<tr><td>Idioma</td><td>Código em inglês, comentários em português, interface em inglês e português</td></tr>
+<tr><td>Prisma</td><td>Mantém a versão 6.19</td></tr>
+<tr><td>Testes</td><td>Playwright (ponta a ponta), configurado no fim; código testável desde o início</td></tr>
+<tr><td>Carteira</td><td>Depósito simples: informa o valor e pronto. Sem saque</td></tr>
+<tr><td>Hospedagem</td><td>Decidida no fim do projeto</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 04</p>
+
+</section></div></div><details><summary>Notas do slide 4</summary><p>Este slide registra as respostas às decisões em aberto da versão anterior do plano. Os slides seguintes já refletem cada uma delas.</p></details></article>
+<article class="slide-wrap" id="lacunas"><div class="frame"><div class="canvas"><section id="lacunas" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">04 · Lacunas</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Seis peças a adicionar na infraestrutura</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Permissões</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Papéis e permissões em tabelas, checados em toda ação</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Anti-bot</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Cloudflare Turnstile invisível validado no servidor</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Tempo real</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Push para logados, consulta a cada 5 s para visitantes</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Encerramento</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Fechar lotes no horário mesmo sem ninguém conectado</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Concorrência</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Lances simultâneos resolvidos com transação e lock</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Idiomas</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">i18n com inglês e português; API devolve só códigos</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 05</p>
+
+</section></div></div><details><summary>Notas do slide 5</summary><p>Separar visitantes (consulta periódica) de logados (push) impede que uma audiência grande atrase os lances. A API responde só com códigos e chaves; a tradução fica toda na interface.</p></details></article>
+<article class="slide-wrap" id="papeis"><div class="frame"><div class="canvas"><section id="papeis" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">05 · Permissões</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Papel é um conjunto de permissões</h2>
+</div>
+<table style="font-size:24px;color:#13192B">
+<tr><th style="width:26%">Permissão</th><th style="width:16%">Licitante</th><th style="width:16%">Leiloeiro</th><th style="width:42%">Protege</th></tr>
+<tr><td>bid.place</td><td>Sim</td><td>Não</td><td>Dar lance</td></tr>
+<tr><td>wallet.view</td><td>Sim</td><td>Não</td><td>Carteira e extrato</td></tr>
+<tr><td>wallet.deposit</td><td>Sim</td><td>Não</td><td>Depósito simulado</td></tr>
+<tr><td>bids.view_own</td><td>Sim</td><td>Não</td><td>Meus arremates</td></tr>
+<tr><td>lot.create</td><td>Não</td><td>Sim</td><td>Criar lote</td></tr>
+<tr><td>lot.cancel</td><td>Não</td><td>Sim</td><td>Cancelar o próprio lote</td></tr>
+<tr><td>lot.view_own</td><td>Não</td><td>Sim</td><td>Painel e total recebido</td></tr>
+<tr><td>catalog.search</td><td>Não</td><td>Sim</td><td>Buscar cartas na Scryfall</td></tr>
+</table>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Visitante não tem sessão nem permissões: vê vitrine, sala, auditoria e comprovante. Cada papel diz se aparece no cadastro público.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 06</p>
+
+</section></div></div><details><summary>Notas do slide 6</summary><p>Tabelas Role, Permission e RolePermission. As chaves conhecidas ficam numa constante no código, para as rotas referenciarem com tipagem; a atribuição a papéis fica no banco. Um papel novo nasce como dado, sem mudar código. Toda rota protegida declara a permissão exigida; recusa por permissão devolve FORBIDDEN dizendo qual ação faltou. A interface esconde menus pelas permissões de /me, e o servidor confere de novo. Caso especial: quem tem lot.create mas não bid.place recebe a mensagem "leiloeiros não dão lances".</p></details></article>
+<article class="slide-wrap" id="dominio"><div class="frame"><div class="canvas"><section id="dominio" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">06 · Domínio</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Modelo de dados</h2>
+</div>
+<table style="font-size:24px;color:#13192B">
+<tr><th style="width:17%">Tabela</th><th style="width:45%">Campos principais</th><th style="width:38%">Garantia no banco</th></tr>
+<tr><td>Role, Permission</td><td>name, publicSignup, key</td><td>Papéis e permissões como dados</td></tr>
+<tr><td>User</td><td>roleId</td><td>Um e-mail, uma conta, um papel</td></tr>
+<tr><td>Lot</td><td>cópia da carta, lance inicial, incremento, início, fim, prorrogado</td><td>Índice único parcial: carta em um só lote ativo</td></tr>
+<tr><td>Bid</td><td>seq, amountCents, idempotencyKey</td><td>UNIQUE (lotId, seq) e (licitante, lote, chave)</td></tr>
+<tr><td>Wallet</td><td>totalCents, committedCents</td><td>CHECK: nada negativo, comprometido ≤ total</td></tr>
+<tr><td>WalletEntry</td><td>tipo, valor, idempotencyKey</td><td>Extrato só de inserção</td></tr>
+<tr><td>AuditEntry</td><td>seq, tipo, payload, prevHash, hash</td><td>Cadeia HMAC por lote</td></tr>
+<tr><td>Receipt</td><td>código, valor final, chainHead</td><td>Código único e imprevisível</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 07</p>
+
+</section></div></div><details><summary>Notas do slide 7</summary><p>Dinheiro sempre em centavos inteiros, com sufixo Cents nos nomes. O lote não tem coluna de estado: guarda só cancelledAt e closedAt, e o resto vem do relógio. O índice único parcial (fonte + id da carta, onde não cancelado e não encerrado) torna a regra "uma carta em um só lote ativo" atômica mesmo com dois leiloeiros publicando ao mesmo tempo. O Prisma não expressa índice parcial nem CHECK, então eles entram em SQL na migration.</p></details></article>
+<article class="slide-wrap" id="ciclo"><div class="frame"><div class="canvas"><section id="ciclo" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">07 · Ciclo de vida</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Estados de um lote</h2>
+</div>
+<div style="position:absolute;left:128px;top:400px;width:300px;height:112px;display:flex;align-items:center;justify-content:center;background:#FFFDF8;border:2px solid #13192B;border-radius:16px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Agendado</p></div>
+<div style="position:absolute;left:548px;top:400px;width:300px;height:112px;display:flex;align-items:center;justify-content:center;background:#E3A23B;border:2px solid #13192B;border-radius:16px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700;color:#13192B">Ao vivo</p></div>
+<div style="position:absolute;left:968px;top:400px;width:300px;height:112px;display:flex;align-items:center;justify-content:center;background:#FFFDF8;border:2px solid #13192B;border-radius:16px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Encerrado</p></div>
+<div style="position:absolute;left:1388px;top:400px;width:404px;height:112px;display:flex;align-items:center;justify-content:center;background:#13192B;border:2px solid #13192B;border-radius:16px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700;color:#F5F3EE">Liquidado</p></div>
+<div style="position:absolute;left:338px;top:680px;width:300px;height:112px;display:flex;align-items:center;justify-content:center;background:#EAE6DD;border:2px dashed #7A8295;border-radius:16px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700;color:#4A5368">Cancelado</p></div>
+<svg class="conn" viewBox="0 0 1920 1080" aria-hidden="true"><defs><marker id="h428456" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13192B"/></marker></defs><line x1="428" y1="456" x2="548" y2="456" stroke="#13192B" stroke-width="3" marker-end="url(#h428456)"/></svg>
+<svg class="conn" viewBox="0 0 1920 1080" aria-hidden="true"><defs><marker id="h848456" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13192B"/></marker></defs><line x1="848" y1="456" x2="968" y2="456" stroke="#13192B" stroke-width="3" marker-end="url(#h848456)"/></svg>
+<svg class="conn" viewBox="0 0 1920 1080" aria-hidden="true"><defs><marker id="h1268456" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13192B"/></marker></defs><line x1="1268" y1="456" x2="1388" y2="456" stroke="#13192B" stroke-width="3" marker-end="url(#h1268456)"/></svg>
+<svg class="conn" viewBox="0 0 1920 1080" aria-hidden="true"><defs><marker id="h278512" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7A8295"/></marker></defs><line x1="278" y1="512" x2="420" y2="680" stroke="#7A8295" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#h278512)"/></svg>
+<svg class="conn" viewBox="0 0 1920 1080" aria-hidden="true"><defs><marker id="h698512" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7A8295"/></marker></defs><line x1="698" y1="512" x2="556" y2="680" stroke="#7A8295" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#h698512)"/></svg>
+<p style="position:absolute;left:128px;top:820px;width:720px;font-size:24px;color:#4A5368">Cancelar: só o dono e só sem lances. Sai da vitrine; o link mostra "cancelado".</p>
+<div style="position:absolute;left:968px;top:580px;width:824px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:26px;line-height:1.35;color:#4A5368"><b>Ao vivo</b>: início ≤ agora &lt; fim. O fim é exclusivo.</p>
+<p style="font-size:26px;line-height:1.35;color:#4A5368"><b>Encerrado</b> considera o fim já prorrogado.</p>
+<p style="font-size:26px;line-height:1.35;color:#4A5368"><b>Liquidado</b>: arrematado ou sem vencedor, gravado uma única vez.</p>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 08</p>
+
+</section></div></div><details><summary>Notas do slide 8</summary><p>O lote não tem coluna de estado. Só cancelledAt e closedAt são gravados; agendado, ao vivo e encerrado saem da comparação entre o relógio do servidor e as datas, nessa ordem: cancelado, encerrado gravado, antes do início, antes do fim, senão encerrado. Sem rascunho e sem edição depois de publicar: há uma tela de revisão com esse aviso. Validações na criação: lance inicial e incremento maiores que zero, início não no passado ("agora" abre na hora), fim depois do início, duração mínima de 5 minutos. Cancelamento com lances fica fora do escopo: sem estorno por cancelamento.</p></details></article>
+<article class="slide-wrap" id="lances"><div class="frame"><div class="canvas"><section id="lances" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">08 · Regras de lance</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Ordem fixa: a primeira checagem que falha decide</h2>
+</div>
+<table style="font-size:24px;color:#13192B">
+<tr><th style="width:5%">#</th><th style="width:34%">Checagem</th><th style="width:30%">Código</th><th style="width:31%">Dados para a mensagem</th></tr>
+<tr><td>1</td><td>Valor é inteiro positivo</td><td>BID_INVALID_AMOUNT</td><td>—</td></tr>
+<tr><td>2</td><td>Tem a permissão bid.place</td><td>BID_AUCTIONEER_NOT_ALLOWED</td><td>—</td></tr>
+<tr><td>3</td><td>Reenvio com a mesma chave</td><td>devolve o lance original</td><td>nada é gravado de novo</td></tr>
+<tr><td>4</td><td>Lote cancelado</td><td>BID_LOT_CANCELLED</td><td>—</td></tr>
+<tr><td>5</td><td>Lote ainda não começou</td><td>BID_LOT_NOT_STARTED</td><td>início</td></tr>
+<tr><td>6</td><td>Lote encerrado</td><td>BID_LOT_ENDED</td><td>—</td></tr>
+<tr><td>7</td><td>Já está ganhando</td><td>BID_ALREADY_LEADING</td><td>lance atual</td></tr>
+<tr><td>8</td><td>Abaixo do mínimo</td><td>BID_BELOW_MINIMUM</td><td>mínimo e lance atual</td></tr>
+<tr><td>9</td><td>Não cabe no disponível</td><td>BID_INSUFFICIENT_BALANCE</td><td>disponível e quanto falta</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 09</p>
+
+</section></div></div><details><summary>Notas do slide 9</summary><p>Mínimo: lance inicial no primeiro lance; depois, lance atual + incremento. Checagens 1 e 2 rodam antes da transação, sem segurar lock. A 3 vem antes das de estado: reenviar um lance aceito depois do fim do lote devolve o sucesso original. Uma recusa não grava nada e não mexe em saldo. A API devolve só o código e os dados; a interface monta a frase em inglês ou português. Cenário de aceite (inicial 100, incremento 10): A 90 recusado; A 100 aceito; A 150 já ganhando; B 105 abaixo do mínimo 110; B 110 aceito e A liberado.</p></details></article>
+<article class="slide-wrap" id="carteira"><div class="frame"><div class="canvas"><section id="carteira" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">09 · Carteira</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Disponível = total − comprometido</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:28px">
+<p style="font-size:24px;color:#4A5368">Total</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700">R$ 500</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:28px">
+<p style="font-size:24px;color:#4A5368">Comprometido (lidera com 200)</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#9A5B00">R$ 200</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#13192B;border-radius:16px;padding:28px">
+<p style="font-size:24px;color:#C3CAD8">Disponível</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#F5F3EE">R$ 300</p>
+</div>
+</div>
+<table style="font-size:24px;color:#13192B">
+<tr><th style="width:32%">Movimento no extrato</th><th style="width:68%">Efeito</th></tr>
+<tr><td>DEPOSIT</td><td>total + valor informado. Não existe saque</td></tr>
+<tr><td>COMMIT</td><td>comprometido + valor, ao assumir a liderança</td></tr>
+<tr><td>RELEASE</td><td>comprometido − valor do líder anterior, na mesma transação</td></tr>
+<tr><td>SETTLEMENT_DEBIT</td><td>vencedor: total e comprometido − valor final</td></tr>
+<tr><td>SETTLEMENT_CREDIT</td><td>leiloeiro: total + valor final, sem comissão</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 10</p>
+
+</section></div></div><details><summary>Notas do slide 10</summary><p>Depósito simulado e simples: o licitante informa quanto quer depositar e o valor cai na hora no total. Sem pagamento real, sem saque, sem estorno. Validações: valor maior que zero, no máximo duas casas decimais, teto por depósito (ex.: R$ 1.000.000,00) e chave de idempotência para um duplo clique não creditar duas vezes. Cenário de aceite: deposita 500 → 500/0/500; lidera com 200 → 500/200/300; é superado → 500/0/500; arremata por 200 → total 300. O disponível nunca é gravado, só calculado. Um CHECK no banco garante total e comprometido não negativos e comprometido menor ou igual ao total, mesmo com lances simultâneos em lotes diferentes. O leiloeiro recebe o crédito no extrato e vê o total recebido no painel.</p></details></article>
+<article class="slide-wrap" id="concorrencia"><div class="frame"><div class="canvas"><section id="concorrencia" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">10 · Concorrência</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Um lance é uma única transação</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:48px">
+<div style="flex:3;display:flex;flex-direction:column">
+<ol style="font-size:28px;line-height:1.55;color:#13192B">
+<li>Trava a linha do lote (SELECT … FOR UPDATE)</li>
+<li>Relê o lote já travado e valida as regras</li>
+<li>Trava as carteiras em ordem crescente de id</li>
+<li>Compromete o novo líder e libera o anterior</li>
+<li>Grava o lance com seq + 1 e o registro na auditoria</li>
+<li>Aplica a prorrogação, se for o caso</li>
+<li>Commit; só depois avisa a sala ao vivo</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:16px;background:#13192B;border-radius:16px;padding:40px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700;color:#E3A23B">Dois lances juntos</h3>
+<p style="font-size:26px;line-height:1.45;color:#C3CAD8">Lote em 110, incremento 10. B e C mandam 120 ao mesmo tempo.</p>
+<p style="font-size:26px;line-height:1.45;color:#C3CAD8">Quem pega o lock primeiro vence. O outro relê o lote e é recusado com o novo mínimo: 130.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 11</p>
+
+</section></div></div><details><summary>Notas do slide 11</summary><p>A mesma ordem de locks (lote primeiro, carteiras por id crescente) vale para lance, cancelamento e liquidação, o que elimina deadlock. Cancelamento contra primeiro lance: quem chegar primeiro vence; se o lance venceu, o cancelamento é recusado. O tempo vem de um relógio injetável no servidor, nunca do navegador. Proteções extras no banco: UNIQUE (lotId, seq), índices de idempotência e o CHECK da carteira. Uma falha ao avisar a sala nunca desfaz um lance aceito.</p></details></article>
+<article class="slide-wrap" id="prorrogacao"><div class="frame"><div class="canvas"><section id="prorrogacao" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">11 · Prorrogação (anti-sniping)</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Novo fim = fim atual + 2 min, até 10 min</h2>
+</div>
+<table style="font-size:26px;color:#13192B">
+<tr><th style="width:50%">Situação no lance aceito</th><th style="width:50%">Resultado</th></tr>
+<tr><td>Restam 5:00</td><td>Fim não muda</td></tr>
+<tr><td>Restam 1:30</td><td>Fim + 2:00, passam a restar 3:30</td></tr>
+<tr><td>Restam exatamente 2:00</td><td>Prorroga (janela inclusiva)</td></tr>
+<tr><td>Restam 2:00,001</td><td>Não prorroga</td></tr>
+<tr><td>Quinta prorrogação</td><td>Soma chega a 10 min, o teto</td></tr>
+<tr><td>Lance na janela depois do teto</td><td>Aceito, fim não muda</td></tr>
+<tr><td>Lance recusado</td><td>Nunca prorroga</td></tr>
+</table>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Cada prorrogação entra na auditoria e a sala avisa. Vida máxima do lote: fim original + 10 min.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 12</p>
+
+</section></div></div><details><summary>Notas do slide 12</summary><p>Leitura escolhida para "estende o fim do lote para +2 minutos": soma ao fim atual, não ao horário do lance. O teto evita que um lote nunca termine. Algoritmo: restante = fim − agora; se restante &gt; 2 min ou já somou 10 min, nada muda; senão soma min(2 min, 10 min − já somado). É uma função pura, calculada só depois de o lance ser aceito e com o mesmo "agora". O lote guarda o fim original para exibição, o fim vigente e o total já prorrogado. Essa decisão vai documentada no README.</p></details></article>
+<article class="slide-wrap" id="liquidacao"><div class="frame"><div class="canvas"><section id="liquidacao" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">12 · Liquidação</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Tudo ou nada, e nunca duas vezes</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Quem dispara</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Uma varredura periódica e outra ao iniciar o servidor, para lotes que venceram com ele fora do ar</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Com vencedor</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Débito, crédito, resultado, comprovante e registro na auditoria na mesma transação</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Sem lances</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A5368">Fecha sem vencedor, sem dinheiro e sem comprovante; a auditoria registra o fechamento</p>
+</div>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#4A5368">Sob o lock do lote, relê: já encerrado? cancelado? o fim foi prorrogado? Se sim, não faz nada.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 13</p>
+
+</section></div></div><details><summary>Notas do slide 13</summary><p>A liquidação nunca falha por saldo, porque o valor está comprometido desde o lance. O leiloeiro recebe 100%, sem comissão. Lotes vencidos são processados do mais antigo para o mais novo, cada um na sua transação: uma falha em um não trava os outros e é tentada de novo na próxima passada. O mecanismo da varredura (processo a cada segundo ou cron externo) depende da hospedagem, decidida no fim; a regra de negócio é a mesma nos dois casos.</p></details></article>
+<article class="slide-wrap" id="auditoria"><div class="frame"><div class="canvas"><section id="auditoria" style="background:#13192B;color:#F5F3EE;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B;letter-spacing:2px;text-transform:uppercase">13 · Prova de adulteração</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F5F3EE">Cada fato do lote assina o anterior</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">BID</p>
+<p style="font-size:24px;color:#C3CAD8">prevHash GENESIS</p>
+</div>
+<span aria-hidden="true" style="font-size:40px;color:#E3A23B;flex:none">→</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">BID</p>
+<p style="font-size:24px;color:#C3CAD8">prevHash 1</p>
+</div>
+<span aria-hidden="true" style="font-size:40px;color:#E3A23B;flex:none">→</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">EXTENSION</p>
+<p style="font-size:24px;color:#C3CAD8">prevHash 2</p>
+</div>
+<span aria-hidden="true" style="font-size:40px;color:#E3A23B;flex:none">→</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#E3A23B;border-radius:16px;padding:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#13192B">CLOSED</p>
+<p style="font-size:24px;color:#13192B">vira a âncora</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:28px;font-weight:700;color:#E3A23B">No hash</h3>
+<p style="font-size:24px;line-height:1.45;color:#C3CAD8">HMAC-SHA256 com chave fora do banco, sobre JSON canônico: lote, seq, tipo, dados, prevHash, horário.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:28px;font-weight:700;color:#E3A23B">Âncoras</h3>
+<p style="font-size:24px;line-height:1.45;color:#C3CAD8">Último hash no lote e no comprovante, contagem de lances e comparação com a tabela de lances.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:28px;font-weight:700;color:#E3A23B">Selo</h3>
+<p style="font-size:24px;line-height:1.45;color:#C3CAD8">Íntegro ou Adulterado, recalculado a cada acesso, com o primeiro seq quebrado.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#C3CAD8">CardRush · Plano de ação · 14</p>
+
+</section></div></div><details><summary>Notas do slide 14</summary><p>Quatro tipos de fato entram na cadeia: lance, prorrogação, cancelamento e fechamento, sempre dentro da transação que os produziu e sob o lock do lote. JSON canônico (chaves ordenadas, sem espaços) deixa o hash independente da ordem das chaves no jsonb. A verificação lê lote, cadeia e lances num mesmo snapshot, para um lance chegando durante a leitura não parecer adulteração. Detecta: valor, autor ou horário alterados; remoção no meio ou no fim; inserção; troca de ordem; cadeia refeita com outra chave. Limites honestos para o README: quem tiver a chave e o banco juntos consegue forjar; cortar o fim reescrevendo todas as âncoras, inclusive a do comprovante, não é detectado. O README traz receitas SQL para o avaliador adulterar e ver o selo mudar.</p></details></article>
+<article class="slide-wrap" id="privacidade"><div class="frame"><div class="canvas"><section id="privacidade" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">14 · Privacidade</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Identificar sem expor dados pessoais</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:700">Pseudônimo por lote</h3>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#9A5B00;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:12px;padding:20px">Licitante 7F3A</p>
+<p style="font-size:26px;line-height:1.45;color:#4A5368">HMAC(lote + usuário) com chave própria. Estável no lote, diferente entre lotes. Na sala, o próprio usuário vê "Você".</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:700">Código do comprovante</h3>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;color:#9A5B00;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:12px;padding:20px">/receipts/K7QM3XWP9HDR</p>
+<p style="font-size:26px;line-height:1.45;color:#4A5368">12 caracteres aleatórios de verdade, sem os ambíguos 0, O, 1, I e L. Único e imprevisível.</p>
+</div>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#4A5368">Rotas públicas nunca mostram nome, e-mail ou id do licitante. O leiloeiro aparece pelo nome de exibição.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 15</p>
+
+</section></div></div><details><summary>Notas do slide 15</summary><p>O comprovante mostra carta, valor final, data e hora, leiloeiro, arrematante por pseudônimo, número de lances, link para a auditoria e a impressão digital do histórico (o hash do fechamento). O código usa gerador criptográfico com amostragem por rejeição, cerca de 59 bits. Limite conhecido: com 4 caracteres hexadecimais, dois licitantes do mesmo lote podem, raramente, ter o mesmo pseudônimo.</p></details></article>
+<article class="slide-wrap" id="api"><div class="frame"><div class="canvas"><section id="api" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">15 · API externa: Scryfall</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Se a Scryfall cair, só a busca sente</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700">Proteções no cliente da API</h3>
+<ul style="font-size:26px;line-height:1.5;color:#4A5368">
+<li>Fila com 100 ms entre chamadas, como a Scryfall pede</li>
+<li>Timeout de 5 s; 429 vira "tente em N segundos"</li>
+<li>API fora: a busca oferece as cartas já consultadas</li>
+<li>Cópia completa da carta gravada no lote</li>
+<li>Imagem com alternativa; créditos da fonte no lote</li>
+</ul>
+</div>
+<table style="font-size:26px;color:#13192B;width:680px">
+<tr><th style="width:62%">Tela</th><th style="width:38%">Usa a API?</th></tr>
+<tr><td>Vitrine de lotes</td><td>Não</td></tr>
+<tr><td>Sala ao vivo e lances</td><td>Não</td></tr>
+<tr><td>Carteira</td><td>Não</td></tr>
+<tr><td>Auditoria</td><td>Não</td></tr>
+<tr><td>Comprovante</td><td>Não</td></tr>
+<tr><td>Busca no painel</td><td style="color:#9A5B00">Sim, com aviso</td></tr>
+</table>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 16</p>
+
+</section></div></div><details><summary>Notas do slide 16</summary><p>Scryfall é a API pública de cartas de Magic: The Gathering, sem chave. Ela pede cabeçalhos de identificação e um intervalo de 50 a 100 ms entre requisições. 404 ou 400 na busca vira lista vazia. A busca no painel só dispara depois de uma pausa na digitação e reaproveita resultados recentes. Na busca, cartas já em lote ativo aparecem como "Em leilão". O cliente fica atrás de uma interface com modos simulados (fora do ar, limite, sem imagem, sem título, carta sumiu) para os testes.</p></details></article>
+<article class="slide-wrap" id="turnstile"><div class="frame"><div class="canvas"><section id="turnstile" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">16 · Anti-bot: Cloudflare Turnstile</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Invisível para pessoas, caro para robôs</h2>
+</div>
+<table style="font-size:24px;color:#13192B">
+<tr><th style="width:22%"></th><th style="width:39%">Escrita (POST, PUT, DELETE)</th><th style="width:39%">Leitura (GET e tempo real)</th></tr>
+<tr><td>Credencial</td><td>Token novo a cada escrita</td><td>Passe de leitura em cookie</td></tr>
+<tr><td>Onde vai</td><td>Cabeçalho cf-turnstile-response</td><td>Cookie ts_pass, httpOnly</td></tr>
+<tr><td>Validade</td><td>Uso único, até 5 min</td><td>4 min, renovado antes de vencer</td></tr>
+<tr><td>Verificação</td><td>siteverify na Cloudflare, sempre</td><td>Assinatura HMAC local, sem rede</td></tr>
+</table>
+<div style="display:flex;flex-direction:row;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:28px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:28px;font-weight:700">Falha fechada</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Cloudflare fora do ar: toda escrita é recusada com aviso. Nada passa sem verificação.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:28px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:28px;font-weight:700">Antes do login</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Roda antes da checagem de sessão: o robô não descobre quais rotas exigem login.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 17</p>
+
+</section></div></div><details><summary>Notas do slide 17</summary><p>Turnstile é o "captcha invisível" da Cloudflare: um script na página resolve um desafio em segundo plano e entrega um token; o servidor confirma esse token na API siteverify com a chave secreta. Não exige hospedar na Cloudflare nem mudar DNS. Em desenvolvimento e testes usamos as chaves de teste públicas da Cloudflare (uma que sempre passa, uma que sempre falha, uma que simula token repetido). Toda recusa é 403 TURNSTILE_FAILED com mensagem genérica e um motivo técnico (token ausente, inválido, reutilizado, passe vencido, Cloudflare indisponível). Exceções: rota de saúde e a própria rota que emite o passe. Quem já tem passe válido continua lendo por até 4 min com a Cloudflare fora: troca aceita para proteger a leitura pública. Outra camada, separada: Bot Fight Mode e regras de WAF da Cloudflare, que exigem o domínio passando pelo proxy da Cloudflare; decidir junto com a hospedagem.</p></details></article>
+<article class="slide-wrap" id="seguranca"><div class="frame"><div class="canvas"><section id="seguranca" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">17 · Segurança</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Checklist que vale para todas as fases</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 64px">
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Permissão checada no servidor em toda ação; o proxy só filtra</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Checagem de dono em tudo que é do leiloeiro</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Zod em toda entrada; dinheiro em centavos inteiros</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Horário só do servidor, por um relógio injetável</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Transação com lock em lance, cancelamento e liquidação</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Turnstile em escritas e leituras; limite de tentativas no login</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Chaves separadas: sessão, auditoria, pseudônimo, Turnstile</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Não sobe em produção com modo de teste ou chaves padrão</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Headers de segurança: CSP, HSTS, frame-ancestors</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><span aria-hidden="true" style="flex:none;width:18px;height:18px;margin-top:10px;border-radius:4px;background:#9A5B00"></span><p style="font-size:26px;line-height:1.4">Cadastro só oferece papéis marcados como públicos</p></div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 18</p>
+
+</section></div></div><details><summary>Notas do slide 18</summary><p>A trava de produção roda na inicialização: se o ambiente for produção e o modo de teste estiver ligado, o Turnstile desligado ou alguma chave estiver vazia ou igual ao valor de desenvolvimento, o servidor nem sobe. Chaves separadas permitem trocar uma sem invalidar as outras. Mensagens de erro de autenticação e de anti-bot são genéricas, para não ajudar quem está testando o sistema.</p></details></article>
+<article class="slide-wrap" id="qualidade"><div class="frame"><div class="canvas"><section id="qualidade" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">18 · Testabilidade</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Pronto para testar desde já; framework no fim</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:30px;font-weight:700">Regras puras</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Estado do lote, mínimo, prorrogação e cadeia em funções sem banco</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:30px;font-weight:700">Relógio injetável</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Testes avançam o tempo sem esperar; produção nunca muda</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:30px;font-weight:700">Banco por parâmetro</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Serviços recebem o cliente ou a transação e se compõem</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:30px;font-weight:700">API simulável</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Modos: normal, fora do ar, limite, sem imagem, carta sumiu</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:30px;font-weight:700">Regras com ID</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Cada regra tem um código citado no código e no teste</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFDF8;border:1px solid #E2DCCF;border-radius:16px;padding:32px">
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:30px;font-weight:700">Ganchos de teste</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A5368">Rotas de reset e relógio só com modo de teste; data-testid na UI</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 19</p>
+
+</section></div></div><details><summary>Notas do slide 19</summary><p>Nenhuma biblioteca de teste é instalada agora. O código nasce do jeito que facilita testar: regras de negócio sem dependência de banco nem de framework, tempo controlado por um único serviço, dependências recebidas por parâmetro e a API externa atrás de uma interface. Ferramenta definida: Playwright, testes ponta a ponta com navegador real contra o app inteiro, configurado no fim. Para isso o código já nasce com ganchos de teste: relógio controlável, reset do banco e modos simulados da Scryfall, todos ativos só no modo de teste. Adulteração da auditoria é testada alterando o banco direto, como um atacante faria. As rotas de teste devolvem 404 fora do modo de teste.</p></details></article>
+<article class="slide-wrap" id="fases"><div class="frame"><div class="canvas"><section id="fases" style="background:#13192B;color:#F5F3EE;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B;letter-spacing:2px;text-transform:uppercase">19 · Roadmap</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F5F3EE">Onze fases, cada uma entregável sozinha</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px">
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F0 · D1</p><p style="font-size:28px;font-weight:600;line-height:1.3">Fundação</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F1 · D1</p><p style="font-size:28px;font-weight:600;line-height:1.3">Permissões</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F2 · D2</p><p style="font-size:28px;font-weight:600;line-height:1.3">Anti-bot</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F3 · D2</p><p style="font-size:28px;font-weight:600;line-height:1.3">Catálogo Scryfall</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F4 · D3</p><p style="font-size:28px;font-weight:600;line-height:1.3">Lotes</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F5 · D3</p><p style="font-size:28px;font-weight:600;line-height:1.3">Carteira</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F6 · D4</p><p style="font-size:28px;font-weight:600;line-height:1.3">Lances</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F7 · D4</p><p style="font-size:28px;font-weight:600;line-height:1.3">Liquidação</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F8 · D5</p><p style="font-size:28px;font-weight:600;line-height:1.3">Auditoria</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1F2740;border:1px solid #3A4560;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">F9 · D5</p><p style="font-size:28px;font-weight:600;line-height:1.3">Tempo real</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#E3A23B;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#13192B">F10 · D6</p><p style="font-size:28px;font-weight:600;line-height:1.3;color:#13192B">Entrega</p></div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#13192B;border:2px dashed #E3A23B;border-radius:16px;padding:24px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">D6–D7</p><p style="font-size:28px;font-weight:600;line-height:1.3">Frontend</p></div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#C3CAD8">CardRush · Plano de ação · 20</p>
+
+</section></div></div><details><summary>Notas do slide 20</summary><p>D1 a D7 são os sete dias corridos do prazo. A ordem segue a dependência do domínio: não dá para dar lance sem carteira, nem auditar sem lances. O anti-bot entra cedo (F2) porque toda rota criada depois já nasce protegida. Cada fase termina com as regras dela cobertas e citadas pelo ID, então dá para parar em qualquer ponto com algo funcionando.</p></details></article>
+<article class="slide-wrap" id="fases-a"><div class="frame"><div class="canvas"><section id="fases-a" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">20 · Fases F0 a F3</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Base, permissões, anti-bot e catálogo</h2>
+</div>
+<table style="font-size:26px;color:#13192B">
+<tr><th style="width:18%">Fase</th><th style="width:44%">Entregáveis</th><th style="width:38%">Pronto quando</th></tr>
+<tr><td>F0 Fundação</td><td>Pastas por domínio, relógio injetável, catálogo de erros e constantes, trava de produção</td><td>Servidor recusa subir com chave padrão em produção</td></tr>
+<tr><td>F1 Permissões</td><td>Role, Permission, RolePermission; cadastro com papel público; guarda por permissão</td><td>Visitante recebe 401; leiloeiro não consegue dar lance</td></tr>
+<tr><td>F2 Anti-bot</td><td>Turnstile: token em escrita, passe de leitura, falha fechada</td><td>Escrita sem token recebe 403 TURNSTILE_FAILED</td></tr>
+<tr><td>F3 Catálogo</td><td>Cliente Scryfall com fila, timeout, cartas consultadas, cópia no lote</td><td>Vitrine abre com a Scryfall desligada</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 21</p>
+
+</section></div></div><details><summary>Notas do slide 21</summary><p>Cada linha é um bloco que dá para entregar e revisar sozinho, inclusive como um pedido separado para a IA. O critério de pronto é sempre uma checagem objetiva, que vira teste automatizado quando o framework for configurado.</p></details></article>
+<article class="slide-wrap" id="fases-b"><div class="frame"><div class="canvas"><section id="fases-b" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">21 · Fases F4 a F7</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Lotes, carteira, lances e liquidação</h2>
+</div>
+<table style="font-size:26px;color:#13192B">
+<tr><th style="width:18%">Fase</th><th style="width:44%">Entregáveis</th><th style="width:38%">Pronto quando</th></tr>
+<tr><td>F4 Lotes</td><td>Criar agora ou agendado, revisão, cancelar sem lances, vitrine por estado</td><td>Mesma carta em dois lotes ativos é recusada</td></tr>
+<tr><td>F5 Carteira</td><td>Extrato, depósito idempotente, CHECK de não negativo</td><td>Cenário 500 / 200 / 300 fecha</td></tr>
+<tr><td>F6 Lances</td><td>Transação com locks, ordem de checagem, idempotência, prorrogação com teto</td><td>B e C juntos: só um aceito, o outro vê o novo mínimo</td></tr>
+<tr><td>F7 Liquidação</td><td>Varredura, comprovante, painel com total recebido</td><td>Rodar duas vezes não debita duas vezes</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 22</p>
+
+</section></div></div><details><summary>Notas do slide 22</summary><p>F6 é a fase mais delicada: concentra locks, saldo, prorrogação e auditoria numa transação. Vale reservar mais tempo de revisão nela do que nas outras.</p></details></article>
+<article class="slide-wrap" id="fases-c"><div class="frame"><div class="canvas"><section id="fases-c" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">22 · Fases F8 a F10 e frontend</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">Auditoria, tempo real e entrega</h2>
+</div>
+<table style="font-size:26px;color:#13192B">
+<tr><th style="width:18%">Fase</th><th style="width:44%">Entregáveis</th><th style="width:38%">Pronto quando</th></tr>
+<tr><td>F8 Auditoria</td><td>Cadeia HMAC, âncoras, pseudônimos, página pública</td><td>UPDATE direto no banco vira Adulterado</td></tr>
+<tr><td>F9 Tempo real</td><td>Push para logados, consulta a cada 5 s para visitantes, reconexão</td><td>Outro navegador vê o lance sem recarregar</td></tr>
+<tr><td>F10 Entrega</td><td>Seed, testes Playwright, hospedagem, README, relato de uso de IA</td><td>Avaliador percorre o fluxo só com o seed</td></tr>
+<tr><td>Frontend</td><td>Telas em inglês e português a partir da nova referência visual</td><td>Todas as chaves existem nos dois idiomas</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 23</p>
+
+</section></div></div><details><summary>Notas do slide 23</summary><p>Seed: um leiloeiro e dois licitantes com saldo; lotes ao vivo com lances e fim distante, agendado, encerrado com arremate e comprovante, encerrado sem lances; horários relativos ao momento do seed. O seed passa pelos mesmos serviços de domínio, senão a cadeia de auditoria nasce inválida. O README traz configuração, usuários de teste, técnica de auditoria com receitas SQL para adulterar, decisões ambíguas, limitações, chaves de teste do Turnstile e o relato de uso de IA.</p></details></article>
+<article class="slide-wrap" id="pendencias"><div class="frame"><div class="canvas"><section id="pendencias" style="background:#F5F3EE;color:#13192B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#9A5B00;letter-spacing:2px;text-transform:uppercase">23 · Para o fim do projeto</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1">O que fica para decidir depois</h2>
+</div>
+<table style="font-size:26px;color:#13192B">
+<tr><th style="width:24%">Tema</th><th style="width:22%">Depende de</th><th style="width:54%">Opções</th></tr>
+<tr><td>Hospedagem</td><td>—</td><td>Vercel + Neon, ou servidor Node fixo (Railway, Render, Fly)</td></tr>
+<tr><td>Tempo real</td><td>Hospedagem</td><td>SSE ou Socket.IO para logados; consulta a cada 5 s para visitantes</td></tr>
+<tr><td>Varredura de liquidação</td><td>Hospedagem</td><td>Processo a cada segundo, ou cron externo com segredo</td></tr>
+<tr><td>Testes unitários</td><td>Tempo livre</td><td>Opcional: Vitest para limites de tempo e concorrência</td></tr>
+<tr><td>WAF e Bot Fight Mode</td><td>Domínio</td><td>Ativar se o DNS passar pelo proxy da Cloudflare</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#7A8295">CardRush · Plano de ação · 24</p>
+
+</section></div></div><details><summary>Notas do slide 24</summary><p>Nada aqui bloqueia as fases F0 a F8. O tempo real e a varredura ficam atrás de uma interface, então trocar o mecanismo depois não mexe nas regras de negócio. Servidor fixo facilita Socket.IO e a varredura a cada segundo; serverless pede SSE ou polling e cron externo.</p></details></article>
+<article class="slide-wrap" id="proximos"><div class="frame"><div class="canvas"><section id="proximos" data-transition="fade" style="background:#13192B;color:#F5F3EE;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B;letter-spacing:2px;text-transform:uppercase">Próximos passos</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1.05;color:#F5F3EE">Começar pela F0 na base CardRush</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;border-top:4px solid #E3A23B;padding:24px 0px 0px 0px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">1</p>
+<p style="font-size:30px;line-height:1.4;color:#C3CAD8">Escrever as regras com ID e as constantes de negócio</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;border-top:4px solid #E3A23B;padding:24px 0px 0px 0px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">2</p>
+<p style="font-size:30px;line-height:1.4;color:#C3CAD8">Abrir o registro de uso de IA desde o primeiro dia</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;border-top:4px solid #E3A23B;padding:24px 0px 0px 0px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#E3A23B">3</p>
+<p style="font-size:30px;line-height:1.4;color:#C3CAD8">Frontend com a nova referência visual, em inglês e português</p>
+</div>
+</div>
+
+</section></div></div><details><summary>Notas do slide 25</summary><p>As sete telas do teste: vitrine, painel do leiloeiro, sala ao vivo, carteira, meus arremates, auditoria pública e mensagens de feedback. Todas consomem os serviços das fases F1 a F9, então o frontend entra sem mexer nas regras de negócio. O relato de uso de IA é exigido no envio.</p></details></article>
+</main>
+<script>
+function fit(){document.querySelectorAll('.frame').forEach(function(f){f.querySelector('.canvas').style.transform='scale('+(f.clientWidth/1920)+')'})}
+addEventListener('resize',fit);fit();
+</script>
+</body></html>
