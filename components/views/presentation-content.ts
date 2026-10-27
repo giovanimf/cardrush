@@ -98,7 +98,6 @@ const pt: PresentationContent = {
     { value: "7", label: "migrations versionadas" },
     { value: "422", label: "textos traduzidos (pt e en)" },
     { value: "0", label: "dados pessoais em rotas públicas" },
-    { value: "28", label: "achados de revisão interna, 23 corrigidos" },
   ],
   context: {
     title: "O problema",
@@ -445,7 +444,6 @@ const en: PresentationContent = {
     { value: "7", label: "versioned migrations" },
     { value: "422", label: "translated strings (pt and en)" },
     { value: "0", label: "personal data on public routes" },
-    { value: "28", label: "internal review findings, 23 fixed" },
   ],
   context: {
     title: "The problem",
