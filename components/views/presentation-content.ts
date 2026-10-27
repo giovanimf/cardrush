@@ -371,11 +371,6 @@ const pt: PresentationContent = {
       { title: "Um passo por pedido, com o documento da etapa como especificação", text: "O “Pronto quando” de cada etapa virou um teste executado de verdade: scripts de cenários contra o banco nas etapas F4 a F8 e Playwright a partir da F10." },
       { title: "Regras puras separadas dos casos de uso", text: "rules.ts e service.ts. Isso permitiu conferir prorrogação, estado do lote, lance mínimo e cadeia de auditoria com tabelas de casos, inclusive nos limites." },
       { title: "Portões em toda etapa", text: "A etapa só era dada como concluída com typecheck, lint e o teste dela passando." },
-      {
-        title: "Revisão independente no fim",
-        ref: "docs/auditoria-2026-10-26.md",
-        text: "Três revisões só de leitura (regras de negócio, segurança e banco, interface e testes), com cada achado conferido no código antes de corrigir. Foram 28 achados: 23 corrigidos com teste de regressão e 5 mantidos com o motivo registrado.",
-      },
       { title: "Conferido pessoalmente", text: "A ordem das checagens e dos locks do lance, a tabela de prorrogação, a auditoria contra adulteração por SQL direto e a privacidade das rotas públicas." },
     ],
     toolsTitle: "Ferramentas",
@@ -717,11 +712,6 @@ const en: PresentationContent = {
       { title: "One step per request, with the stage document as the specification", text: "Each stage's “Done when” became a test that actually ran: scenario scripts against the database in stages F4 to F8 and Playwright from F10 on." },
       { title: "Pure rules separated from use cases", text: "rules.ts and service.ts. This made it possible to check extension, lot state, minimum bid and the audit chain with case tables, edges included." },
       { title: "Gates on every stage", text: "A stage was only done when typecheck, lint and its own test passed." },
-      {
-        title: "Independent review at the end",
-        ref: "docs/auditoria-2026-10-26.md",
-        text: "Three read-only reviews (business rules, security and database, UI and tests), with each finding checked in the code before fixing. 28 findings: 23 fixed with a regression test and 5 kept with a recorded reason.",
-      },
       { title: "Personally checked", text: "The order of bid checks and locks, the extension table, the audit against direct SQL tampering and the privacy of public routes." },
     ],
     toolsTitle: "Tools",
