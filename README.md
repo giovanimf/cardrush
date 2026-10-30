@@ -2,6 +2,18 @@
 
 Casa de leilões online de cartas de Magic: The Gathering. Leiloeiros montam lotes a partir de cartas da API pública **Scryfall**; licitantes depositam saldo simulado e disputam ao vivo; **qualquer pessoa, sem login, audita** o histórico de lances de um lote e confere se ele foi adulterado.
 
+**Link:** https://cardrush.187.41.98.72.sslip.io/
+
+**Logins para testes:**
+
+| Usuário | Papel | E-mail | Senha |
+|---|---|---|---|
+| Helena Duarte | Leiloeira | `helena.duarte@cardrush.com` | `Admin123456!` |
+| Marina Costa | Licitante | `marina.costa@cardrush.com` | `bOqFZW-GcF-1kFk6` |
+| Rafael Lima | Licitante | `rafael.lima@cardrush.com` | `bOqFZW-GcF-1kFk6` |
+
+Esses usuários são criados pelo seed a partir de variáveis de ambiente (`SEED_EMAIL`, `SEED_PASSWORD` e `SEED_BIDDER_PASSWORD`), para não deixar senhas fixas no código. Elas estão expostas aqui de propósito, só para testes: são contas de demonstração com saldo simulado, que cobrem as principais funcionalidades e não representam risco para o sistema. Se quiser, é fácil trocar: basta alterar o `.env` e rodar o seed de novo.
+
 **Stack:** Next.js 16 (App Router, Turbopack, Cache Components), React 19, TypeScript, Better Auth, Prisma 6 + PostgreSQL (Neon), Tailwind 4, Cloudflare Turnstile, Playwright.
 
 ---

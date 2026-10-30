@@ -10,6 +10,13 @@ export type PresentationContent = {
   video: { title: string; hint: string; fallback: string; download: string; chapters: { time: string; label: string }[] }
   numbers: { value: string; label: string }[]
   context: { title: string; paragraphs: string[]; roles: { name: string; text: string }[] }
+  logins: {
+    title: string
+    intro: string
+    columns: { user: string; role: string; email: string; password: string }
+    users: { name: string; role: string; email: string; password: string }[]
+    note: string
+  }
   requirements: {
     title: string
     intro: string
@@ -110,6 +117,17 @@ const pt: PresentationContent = {
       { name: "Licitante", text: "Deposita saldo, dá lances e arremata itens." },
       { name: "Visitante", text: "Vê a vitrine, acompanha as salas e audita qualquer lote sem conta." },
     ],
+  },
+  logins: {
+    title: "Logins de acesso",
+    intro: "Três usuários de teste, criados pelo seed, para experimentar as principais funcionalidades sem precisar se cadastrar.",
+    columns: { user: "Usuário", role: "Papel", email: "E-mail", password: "Senha" },
+    users: [
+      { name: "Helena Duarte", role: "Leiloeira", email: "helena.duarte@cardrush.com", password: "Admin123456!" },
+      { name: "Marina Costa", role: "Licitante", email: "marina.costa@cardrush.com", password: "bOqFZW-GcF-1kFk6" },
+      { name: "Rafael Lima", role: "Licitante", email: "rafael.lima@cardrush.com", password: "bOqFZW-GcF-1kFk6" },
+    ],
+    note: "Por segurança, esses usuários são criados a partir de variáveis de ambiente (SEED_EMAIL, SEED_PASSWORD e SEED_BIDDER_PASSWORD) e não ficam fixos no código. As senhas estão expostas aqui de propósito, só para testes: são contas de demonstração, com saldo simulado, que cobrem as principais funcionalidades e não representam risco para o sistema. Para trocar, basta alterar o .env e rodar o seed de novo.",
   },
   requirements: {
     title: "Requisitos e onde cada um foi resolvido",
@@ -451,6 +469,17 @@ const en: PresentationContent = {
       { name: "Bidder", text: "Deposits balance, bids and wins items." },
       { name: "Visitor", text: "Browses the showcase, watches rooms and audits any lot without an account." },
     ],
+  },
+  logins: {
+    title: "Test logins",
+    intro: "Three test users, created by the seed, to try the main features without signing up.",
+    columns: { user: "User", role: "Role", email: "Email", password: "Password" },
+    users: [
+      { name: "Helena Duarte", role: "Auctioneer", email: "helena.duarte@cardrush.com", password: "Admin123456!" },
+      { name: "Marina Costa", role: "Bidder", email: "marina.costa@cardrush.com", password: "bOqFZW-GcF-1kFk6" },
+      { name: "Rafael Lima", role: "Bidder", email: "rafael.lima@cardrush.com", password: "bOqFZW-GcF-1kFk6" },
+    ],
+    note: "For security, these users are created from environment variables (SEED_EMAIL, SEED_PASSWORD and SEED_BIDDER_PASSWORD) rather than hardcoded. The passwords are exposed here on purpose, for testing only: they are demo accounts with a simulated balance that cover the main features and pose no risk to the system. To change them, edit the .env and run the seed again.",
   },
   requirements: {
     title: "Requirements and where each one is solved",

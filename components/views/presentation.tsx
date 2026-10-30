@@ -83,6 +83,39 @@ export function PresentationView({ lang }: { lang: Locale }) {
         </div>
       </Section>
 
+      <Section title={c.logins.title}>
+        <p className="muted pres-lead">{c.logins.intro}</p>
+        <div className="panel pres-table">
+          <div className="table-scroll">
+            <table className="t">
+              <thead>
+                <tr>
+                  <th>{c.logins.columns.user}</th>
+                  <th>{c.logins.columns.role}</th>
+                  <th>{c.logins.columns.email}</th>
+                  <th>{c.logins.columns.password}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {c.logins.users.map((user) => (
+                  <tr key={user.email}>
+                    <td className="pres-need">{user.name}</td>
+                    <td>{user.role}</td>
+                    <td>
+                      <code>{user.email}</code>
+                    </td>
+                    <td>
+                      <code>{user.password}</code>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="banner info mt24">{c.logins.note}</div>
+      </Section>
+
       <Section title={c.ai.title}>
         <div className="pres-prose">
           <p>{c.ai.intro}</p>
